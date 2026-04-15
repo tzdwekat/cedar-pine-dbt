@@ -1,0 +1,22 @@
+metrics:
+  - name: net_revenue
+    label: "Net Revenue"
+    description: "Total net revenue from fulfilled orders. The canonical revenue metric used by Finance."
+    type: simple
+    type_params:
+      measure: net_revenue
+
+  - name: order_count
+    label: "Order Count"
+    description: "Total number of orders."
+    type: simple
+    type_params:
+      measure: order_count
+
+  - name: average_order_value
+    label: "Average Order Value"
+    description: "Net revenue divided by order count. The AOV metric Marketing and Finance argued about for 6 months."
+    type: ratio
+    type_params:
+      numerator: net_revenue
+      denominator: order_count
