@@ -58,7 +58,7 @@ Priya, based on our discovery calls, your team is spending too much time firefig
 
 - **Staging layer:** 3 models cleaning raw Shopify data (orders, customers, line items), materialized as views
 - **Marts:** `fct_orders` (one row per order, with line item aggregates) and `dim_customers` (one row per customer, with lifetime revenue and behavioral segments)
-- **Testing:** Generic tests on every primary key, foreign key, and accepted-value column, plus a singular test asserting that fulfilled orders have positive net revenue
+- **Testing**: 17 data tests covering primary keys, foreign keys, accepted values, referential integrity, and a singular test asserting that fulfilled orders have positive net revenue
 - **Documentation:** Column-level descriptions on every model, lineage graph generated from `ref()` and `source()`
 - **Source freshness:** Configured on Shopify orders to alert when raw data has not landed in 48 hours (warn) or 72 hours (error)
 - **Slim CI:** A CI job configured to run only on modified models with deferral to the Production environment, so PRs build only what changed
