@@ -40,7 +40,11 @@ final as (
             when o.order_status = 'O' then 'open'
             when o.order_status = 'P' then 'pending'
             else 'unknown'
-        end as order_status_clean
+        end as order_status_clean,
+        case 
+            when net_item_revenue > 50000 then true 
+            else false 
+        end as is_high_value_order
     from orders o
     left join item_aggregates i
         on o.order_id = i.order_id
