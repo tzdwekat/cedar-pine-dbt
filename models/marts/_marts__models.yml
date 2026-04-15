@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: fct_orders
+    description: "One row per order. Core fact table for revenue reporting. Powers the CEO revenue dashboard and Finance monthly close."
+    columns:
+      - name: order_id
+        description: "Primary key. Unique identifier for each order."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Foreign key to dim_customers."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
+      - name: ordered_at
+        description: "Timestamp the order was placed."
+        tests:
+          - not_null
+      - name: net_item_revenue
+        description: "Line item revenue after discounts applied. This is the metric Finance uses for GAAP revenue reporting."
+      - name: order_status_clean
+        description: "Human-readable order status."
+        tests:
+          - accepted_values:
+              values: ['fulfilled', 'open', 'pending', 'unknown']
+
+  - name: dim_customers
+    description: "One row per customer with lifetime aggregates. Used by Marketing for segmentation and Finance for cohort analysis."
+    columns:
+      - name: customer_id
+        description: "Primary key."
+        tests:
+          - unique
+          - not_null
+      - name: customer_segment
+        description: "Behavioral segment based on lifetime order count."
+        tests:
+          - accepted_values:
+              values: ['high_value', 'repeat', 'one_time', 'prospect']
+      - name: lifetime_revenue
+        description: "Sum of net_item_revenue across all orders."
