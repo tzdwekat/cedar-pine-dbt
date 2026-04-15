@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: stg_shopify__orders
+    description: "Cleaned and renamed Shopify orders data."
+    columns:
+      - name: order_id
+        description: "Primary key of orders."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Foreign key to customers."
+        tests:
+          - not_null
+
+  - name: stg_shopify__customers
+    description: "Cleaned and renamed Shopify customers data."
+    columns:
+      - name: customer_id
+        description: "Primary key of customers."
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_shopify__order_items
+    description: "Cleaned and renamed Shopify line item data. Grain is one row per line item per order."
+    columns:
+      - name: order_id
+        description: "Foreign key to orders."
+        tests:
+          - not_null
+      - name: product_id
+        description: "Foreign key to products."
+        tests:
+          - not_null
