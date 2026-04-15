@@ -1,0 +1,8 @@
+models:
+  - name: time_spine_daily
+    description: "A daily time spine for the Semantic Layer."
+    time_spine:
+      standard_granularity_column: date_day
+    columns:
+      - name: date_day
+        granularity: day
